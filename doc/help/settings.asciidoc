@@ -378,6 +378,7 @@ Backend to use to display websites.
 qutebrowser supports two different web rendering engines / backends, QtWebKit and QtWebEngine.
 QtWebKit was discontinued by the Qt project with Qt 5.6, but picked up as a well maintained fork: https://github.com/annulen/webkit/wiki - qutebrowser only supports the fork.
 QtWebEngine is Qt's official successor to QtWebKit. It's slightly more resource hungry than QtWebKit and has a couple of missing features in qutebrowser, but is generally the preferred choice.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -513,6 +514,8 @@ Default:
 * +pass:[&lt;Ctrl-Y&gt;]+: +pass:[rl-yank]+
 * +pass:[&lt;Down&gt;]+: +pass:[completion-item-focus --history next]+
 * +pass:[&lt;Escape&gt;]+: +pass:[leave-mode]+
+* +pass:[&lt;PgDown&gt;]+: +pass:[completion-item-focus next-page]+
+* +pass:[&lt;PgUp&gt;]+: +pass:[completion-item-focus prev-page]+
 * +pass:[&lt;Return&gt;]+: +pass:[command-accept]+
 * +pass:[&lt;Shift-Delete&gt;]+: +pass:[completion-item-del]+
 * +pass:[&lt;Shift-Tab&gt;]+: +pass:[completion-item-focus prev]+
@@ -1573,6 +1576,7 @@ Default: +pass:[white]+
 [[colors.webpage.darkmode.algorithm]]
 === colors.webpage.darkmode.algorithm
 Which algorithm to use for modifying how colors are rendered with darkmode.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -1593,6 +1597,7 @@ On QtWebKit, this setting is unavailable.
 === colors.webpage.darkmode.contrast
 Contrast for dark mode.
 This only has an effect when `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or `brightness-rgb`.
+
 This setting requires a restart.
 
 Type: <<types,Float>>
@@ -1620,6 +1625,7 @@ Example configurations from Chromium's `chrome://flags`:
 
 - "With selective inversion of everything": Combines the two variants
   above.
+
 This setting requires a restart.
 
 Type: <<types,Bool>>
@@ -1634,6 +1640,7 @@ On QtWebKit, this setting is unavailable.
 === colors.webpage.darkmode.grayscale.all
 Render all colors as grayscale.
 This only has an effect when `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or `brightness-rgb`.
+
 This setting requires a restart.
 
 Type: <<types,Bool>>
@@ -1648,6 +1655,7 @@ On QtWebKit, this setting is unavailable.
 === colors.webpage.darkmode.grayscale.images
 Desaturation factor for images in dark mode.
 If set to 0, images are left as-is. If set to 1, images are completely grayscale. Values between 0 and 1 desaturate the colors accordingly.
+
 This setting requires a restart.
 
 Type: <<types,Float>>
@@ -1662,6 +1670,7 @@ On QtWebKit, this setting is unavailable.
 === colors.webpage.darkmode.policy.images
 Which images to apply dark mode to.
 WARNING: On Qt 5.15.0, this setting can cause frequent renderer process crashes due to a https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/304211[bug in Qt].
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -1681,6 +1690,7 @@ On QtWebKit, this setting is unavailable.
 [[colors.webpage.darkmode.policy.page]]
 === colors.webpage.darkmode.policy.page
 Which pages to apply dark mode to.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -1701,6 +1711,7 @@ On QtWebKit, this setting is unavailable.
 Threshold for inverting background elements with dark mode.
 Background elements with brightness above this threshold will be inverted, and below it will be left as in the original, non-dark-mode page. Set to 256 to never invert the color or to 0 to always invert it.
 Note: This behavior is the opposite of `colors.webpage.darkmode.threshold.text`!
+
 This setting requires a restart.
 
 Type: <<types,Int>>
@@ -1715,6 +1726,7 @@ On QtWebKit, this setting is unavailable.
 === colors.webpage.darkmode.threshold.text
 Threshold for inverting text with dark mode.
 Text colors with brightness below this threshold will be inverted, and above it will be left as in the original, non-dark-mode page. Set to 256 to always invert text color or to 0 to never invert text color.
+
 This setting requires a restart.
 
 Type: <<types,Int>>
@@ -1858,6 +1870,7 @@ Default: +pass:[false]+
 A list of patterns which should not be shown in the history.
 This only affects the completion. Matching URLs are still saved in the history (and visible on the qute://history page), but hidden in the completion.
 Changing this setting will cause the completion history to be regenerated on the next start, which will take a short while.
+
 This setting requires a restart.
 
 Type: <<types,List of UrlPattern>>
@@ -2030,6 +2043,7 @@ Default: empty
 === content.canvas_reading
 Allow websites to read canvas elements.
 Note this is needed for some websites to work properly.
+
 This setting requires a restart.
 
 Type: <<types,Bool>>
@@ -2190,6 +2204,7 @@ Default: +pass:[true]+
 When to send the Referer header.
 The Referer header tells websites from which website you were coming from when visiting them.
 No restart is needed with QtWebKit.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -2586,6 +2601,7 @@ On QtWebKit, this setting is unavailable.
 [[content.site_specific_quirks]]
 === content.site_specific_quirks
 Enable quirks (such as faked user agent headers) needed to get specific sites to work properly.
+
 This setting requires a restart.
 
 Type: <<types,Bool>>
@@ -2650,6 +2666,7 @@ Default: +pass:[true]+
 === content.webrtc_ip_handling_policy
 Which interfaces to expose via WebRTC.
 On Qt 5.10, this option doesn't work because of a Qt bug.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -3477,6 +3494,7 @@ Default: +pass:[8]+
 === qt.args
 Additional arguments to pass to Qt, without leading `--`.
 With QtWebEngine, some Chromium arguments (see https://peter.sh/experiments/chromium-command-line-switches/ for a list) will work.
+
 This setting requires a restart.
 
 Type: <<types,List of String>>
@@ -3487,6 +3505,7 @@ Default: empty
 === qt.force_platform
 Force a Qt platform to use.
 This sets the `QT_QPA_PLATFORM` environment variable and is useful to force using the XCB plugin when running QtWebEngine on Wayland.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -3497,6 +3516,7 @@ Default: empty
 === qt.force_platformtheme
 Force a Qt platformtheme to use.
 This sets the `QT_QPA_PLATFORMTHEME` environment variable which controls dialogs like the filepicker. By default, Qt determines the platform theme based on the desktop environment.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -3507,6 +3527,7 @@ Default: empty
 === qt.force_software_rendering
 Force software rendering for QtWebEngine.
 This is needed for QtWebEngine to work with Nouveau drivers and can be useful in other scenarios related to graphic issues.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -3527,6 +3548,7 @@ This setting is only available with the QtWebEngine backend.
 Turn on Qt HighDPI scaling.
 This is equivalent to setting QT_AUTO_SCREEN_SCALE_FACTOR=1 or QT_ENABLE_HIGHDPI_SCALING=1 (Qt >= 5.14) in the environment.
 It's off by default as it can cause issues with some bitmap fonts. As an alternative to this, it's possible to set font sizes and the `zoom.default` setting.
+
 This setting requires a restart.
 
 Type: <<types,Bool>>
@@ -3537,6 +3559,7 @@ Default: +pass:[false]+
 === qt.low_end_device_mode
 When to use Chromium's low-end device mode.
 This improves the RAM usage of renderer processes, at the expense of performance.
+
 This setting requires a restart.
 
 Type: <<types,String>>
@@ -3559,6 +3582,7 @@ See the following pages for more details:
 
   - https://www.chromium.org/developers/design-documents/process-models
   - https://doc.qt.io/qt-5/qtwebengine-features.html#process-models
+
 This setting requires a restart.
 
 Type: <<types,String>>

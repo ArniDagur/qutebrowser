@@ -188,8 +188,10 @@ class BraveAdBlocker:
         """Block the given request if necessary."""
         if self._is_blocked(info.request_url, info.first_party_url, info.resource_type):
             logger.debug(
-                "Request to %s blocked by ad blocker.",
+                "Request to %s blocked by ad blocker from %s with resource type %s",
                 info.request_url.toDisplayString(),
+                info.first_party_url.toDisplayString(),
+                info.resource_type,
             )
             info.block()
 
